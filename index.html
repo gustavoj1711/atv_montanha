@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Meu Dicionário Javascript">
+    <title>Dicionário Javascript</title>
+    <link rel="stylesheet" href="C:\Users\chita\Desktop\atv_montanha\style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="C:\Users\chita\Desktop\atv_montanha\db.js"></script>
+    <script src="C:\Users\chita\Desktop\atv_montanha\main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="centered-container">
+            <img class="center-content" src="https://alexmontanha.github.io/maps/assets/img/png-javascript-badge-picture-8.png" width="250" alt="Logo do Javascript, escudo amarelo, com as letras J e S" title="Meu Dicionário Javascript">
+        </div>
+        <div>
+            <h1>Bem-vindo ao Meu Dicionário Javascript</h1>
+            <p>Escolha uma opção abaixo:</p>
+            <select title="Tópicos" id="slc-topicos" onchange="onSelectChange()">
+            <option value="1">O que é JavaScript</option><option value="2">Statement 'for'</option><option value="3">Funções em JavaScript</option><option value="4">Objetos em JavaScript</option></select>
+            <p></p>
+            <label for="description" id="lbl-txt-desc">Descição</label>
+            <p></p>
+            <textarea id="txt-desc" name="description" title="Descição" placeholder=""></textarea>
+        </div>
+    </div>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Carregar o JSON
+            fetch("C:\\Users\\chita\\Desktop\\atv_montanha\\db.json")
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById("slc-topicos");
+                    const textarea = document.getElementById("txt-desc");
+                    
+                    // Função para atualizar a descrição com base no item selecionado
+                    function updateDescription() {
+                        const selectedId = parseInt(select.value);
+                        const selectedEntry = data.find(entry => entry.id === selectedId);
+                        textarea.value = selectedEntry ? selectedEntry.descricao : "";
+                    }
+                    
+                    // Atribuir a função ao evento onchange do menu suspenso
+                    select.addEventListener("change", updateDescription);
+                    
+                    // Atualizar a descrição com base no valor inicial do menu suspenso
+                    updateDescription();
+                });
+        });
+</script>
+
+</body></html>
